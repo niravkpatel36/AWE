@@ -1,0 +1,43 @@
+# -----------------------------
+# Python backend
+# -----------------------------
+backend/app/.venv/
+backend/app/venv/
+venv/
+
+backend/app/__pycache__/
+backend/app/**/*.pyc
+backend/app/**/*.pyo
+backend/app/**/*.pyd
+
+backend/app/.env
+
+*.egg-info/
+dist/
+build/
+
+*.log
+
+# -----------------------------
+# Node / Vite frontend
+# -----------------------------
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# -----------------------------
+# OS / Editor Junk
+# -----------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.history/
