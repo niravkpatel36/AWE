@@ -4,28 +4,14 @@ from app.config import settings
 import numpy as np
 import uuid
 
+# app/agent/memory.py
 class Memory:
     def __init__(self):
-        self.client = QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY)
-        # ensure collection exists
-        try:
-            self.client.recreate_collection(collection_name="awe_memory", vectors_config=VectorParams(size=1536, distance=Distance.COSINE))
-        except Exception:
-            pass
-
-    def embed(self, text: str) -> list:
-        # placeholder: in production call the LLM embedding endpoint or local embedder
-        # simple deterministic hash-based vector for demo (replace for prod)
-        arr = np.random.RandomState(abs(hash(text)) % (2**32)).randn(1536).astype(float)
-        return arr.tolist()
+        self.memory = []  # simple in-memory list
 
     def upsert(self, payload: dict, text: str):
-        vec = self.embed(text)
-        point_id = str(uuid.uuid4())
-        self.client.upsert(collection_name="awe_memory", points=[{"id": point_id, "vector": vec, "payload": payload}])
-        return point_id
+        self.memory.append({"payload": payload, "text": text})
 
-    def query(self, text: str, top_k: int = 4):
-        vec = self.embed(text)
-        res = self.client.search(collection_name="awe_memory", query_vector=vec, limit=top_k)
-        return res
+    def search(self, text: str, limit: int = 5):
+        return self.memory[-limit:]
+
