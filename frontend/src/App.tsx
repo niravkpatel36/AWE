@@ -145,7 +145,7 @@ export default function App() {
             <h3 className="text-md font-semibold mb-3">Recent Runs</h3>
             <div className="space-y-2 max-h-48 overflow-auto">
               {history.length === 0 && (
-                <div className="text-sm text-gray-400">No runs yet — launch one.</div>
+                <div className="text-sm text-gray-400">No runs yet.</div>
               )}
               {history.map((h) => (
                 <div
@@ -175,8 +175,7 @@ export default function App() {
             <h3 className="text-md font-semibold mb-2">About</h3>
             <p className="text-sm text-gray-300">
               AWE breaks your high-level goal into steps, runs them autonomously,
-              and shows a live DAG of progress. Great for demos and engineering
-              interviews.
+              and shows a live DAG of progress.
             </p>
           </div>
         </section>
