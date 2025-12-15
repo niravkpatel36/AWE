@@ -69,7 +69,7 @@ export default function App() {
   }
 
   const demoGoal =
-    "Create a complete, portfolio-quality prototype for an AI Wellbeing Evaluation web app. Deliver: - Landing page sections (hero, features, testimonials, footer) - Questionnaire page with 5–10 questions - Result dashboard with chart - Clean UI components (buttons, cards, nav) - TailwindCSS styling - Fully working React code, ready to paste into a Vite project. Make it visually stunning, modern, and smooth, as if built by a senior frontend engineer.";
+    "Define system requirements and workflow structure. Ingest and validate raw input data. Execute transformation, analysis, and decision logic. Persist and version outputs. Deploy, monitor, and verify end-to-end workflow execution.";
 
   function runDemo() {
 
