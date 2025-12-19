@@ -258,7 +258,7 @@ export default function App() {
                                  shadow-md text-white font-medium
                                  min-w-[140px] text-center"
                     >
-                      Edit goal
+                      Edit demo goal
                     </button>
                   </div>
                 </div>
