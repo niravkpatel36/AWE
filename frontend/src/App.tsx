@@ -46,11 +46,15 @@ export default function App() {
     const localGoal = typeof overrideGoal === "string" ? overrideGoal : goal;
     if (!localGoal.trim()) return;
     setStatus("starting");
-    const res = await fetch("/api/run", {
+    
+    const API = import.meta.env.VITE_API_BASE_URL;
+
+    const res = await fetch(`${API}/api/run`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ goal: localGoal })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ goal: localGoal }),
     });
+
     const data = await res.json();
     const id = data.run_id;
     setRunId(id);
