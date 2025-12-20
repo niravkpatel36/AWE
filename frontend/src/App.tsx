@@ -43,23 +43,38 @@ export default function App() {
   }, [runId]);
 
   async function submit(overrideGoal?: string) {
-    const localGoal = typeof overrideGoal === "string" ? overrideGoal : goal;
-    if (!localGoal.trim()) return;
-    setStatus("starting");
-    const res = await fetch("/api/run", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ goal: localGoal })
-    });
-    const data = await res.json();
-    const id = data.run_id;
-    setRunId(id);
-    setStatus("running");
-    setHistory((h) => [
-      { id, goal: localGoal.slice(0, 120), startedAt: new Date().toISOString() },
-      ...h
-    ]);
+  const localGoal = typeof overrideGoal === "string" ? overrideGoal : goal;
+  if (!localGoal.trim()) return;
+
+  setStatus("starting");
+
+  const baseUrl =
+    import.meta.env.VITE_API_BASE_URL || "";
+
+  const res = await fetch(`${baseUrl}/api/run`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ goal: localGoal }),
+  });
+
+  const text = await res.text();
+  console.log("RAW RESPONSE:", text);
+
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error("Backend did not return JSON");
   }
+
+  const id = data.run_id;
+  setRunId(id);
+  setStatus("running");
+  setHistory((h) => [
+    { id, goal: localGoal.slice(0, 120), startedAt: new Date().toISOString() },
+    ...h,
+  ]);
+}
 
   function resetState() {
     setGoal("");
