@@ -1,4 +1,6 @@
-import { WS_BASE_URL } from "../config";
+const WS_BASE_URL =
+  import.meta.env.VITE_WS_BASE_URL ??
+  import.meta.env.VITE_API_BASE_URL?.replace("https://", "wss://");
 
 export default function WsClient() {
   let ws: WebSocket | null = null;
@@ -11,12 +13,14 @@ export default function WsClient() {
 
     ws.onopen = () => {
       keepalive = setInterval(() => {
-        ws?.send(JSON.stringify({ type: "ping" }));
+        try { ws?.send("ping"); } catch {}
       }, 20000);
     };
 
     ws.onmessage = (ev) => {
-      onMessage(JSON.parse(ev.data));
+      try {
+        onMessage(JSON.parse(ev.data));
+      } catch {}
     };
 
     ws.onclose = () => {
@@ -25,7 +29,7 @@ export default function WsClient() {
   }
 
   function disconnect() {
-    ws?.close();
+    try { ws?.close(); } catch {}
     ws = null;
   }
 

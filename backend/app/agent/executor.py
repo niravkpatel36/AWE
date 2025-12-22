@@ -17,7 +17,7 @@ class Executor:
         self.docker = None
 
     async def start(self, run_id: str, graph):
-        await self._run_graph(run_id, graph)
+        asyncio.create_task(self._run_graph(run_id, graph))
 
     async def _run_graph(self, run_id: str, graph):
         # naive topological: execute in order in nodes list respecting edges
