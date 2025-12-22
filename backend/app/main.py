@@ -22,11 +22,3 @@ app.include_router(websocket_router, prefix="/ws")
 async def root():
     return {"service": "AWE Backend", "status": "ok"}
 
-if __name__ == "__main__":
-    uvicorn.run(
-        "app.main:app",
-        host=settings.APP_HOST,
-        port=settings.APP_PORT,
-        reload=False,
-    )
-
