@@ -5,6 +5,7 @@ import WsClient from "./components/WsClient";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import Logo from "./components/Logo";
+import { API_BASE_URL } from "./config";
 
 type Graph = {
   nodes: any[];
@@ -42,16 +43,13 @@ export default function App() {
     };
   }, [runId]);
 
-  async function submit(overrideGoal?: string) {
+async function submit(overrideGoal?: string) {
   const localGoal = typeof overrideGoal === "string" ? overrideGoal : goal;
   if (!localGoal.trim()) return;
 
   setStatus("starting");
 
-  const baseUrl =
-    import.meta.env.VITE_API_BASE_URL || "";
-
-  const res = await fetch(`${baseUrl}/api/run`, {
+  const res = await fetch(`${API_BASE_URL}/api/run`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ goal: localGoal }),
@@ -60,7 +58,7 @@ export default function App() {
   const text = await res.text();
   console.log("RAW RESPONSE:", text);
 
-  let data;
+  let data: any;
   try {
     data = JSON.parse(text);
   } catch {

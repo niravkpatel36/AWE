@@ -11,32 +11,24 @@ export default function WsClient() {
 
     ws.onopen = () => {
       keepalive = setInterval(() => {
-        try {
-          ws?.send(JSON.stringify({ type: "ping" }));
-        } catch {}
+        ws?.send(JSON.stringify({ type: "ping" }));
       }, 20000);
     };
 
     ws.onmessage = (ev) => {
-      try {
-        onMessage(JSON.parse(ev.data));
-      } catch (e) {
-        console.error("ws parse error", e);
-      }
+      onMessage(JSON.parse(ev.data));
     };
 
     ws.onclose = () => {
       clearInterval(keepalive);
-      keepalive = null;
     };
   }
 
   function disconnect() {
-    if (ws) {
-      try { ws.close(); } catch {}
-      ws = null;
-    }
+    ws?.close();
+    ws = null;
   }
 
   return { connect, disconnect };
 }
+
