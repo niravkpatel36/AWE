@@ -8,15 +8,14 @@ The system is designed for engineers building, evaluating, or demonstrating agen
 - [About](#about)
 - [System Overview](#system-overview)
 - [Architecture](#architecture)
+- [Project Structure](#project-structure)
 - [Execution Model](#execution-model)
 - [API Overview](#api-overview)
 - [Frontend](#frontend)
 - [Local Development](#local-development)
-- [Environment Configuration](#environment-configuration)
 - [Deployment](#deployment)
-- [Project Structure](#project-structure)
-- [Engineering Principles](#engineering-principles)
-- [Roadmap](#roadmap)
+- [Configuration](#configuration)
+- [Design Philosophy](#design-philosophy)
 - [License](#license)
 
 ## About
@@ -28,11 +27,17 @@ The platform emphasizes three core principles:
 - **Explicit Structure**  
   All reasoning and execution is materialized as graph nodes and edges. Nothing is implicit, hidden, or transient.
   
+  <img width="614" height="421" alt="img1" src="https://github.com/user-attachments/assets/a963664f-3208-464f-928a-7fa5c9463686" />
+
 - **Live Observability**  
   Execution state is streamed in real time, enabling users to inspect progress, dependencies, failures, and recovery paths as they occur.
 
+  <img width="610" height="591" alt="img 2" src="https://github.com/user-attachments/assets/22b56b58-04cf-4cf9-b49a-4315b3db425d" />
+
 - **Deterministic Control Surfaces**  
   Every execution step is addressable, restartable, and auditable. The system is designed to support both experimentation and production-grade workflows.
+
+  <img width="302" height="452" alt="img 3" src="https://github.com/user-attachments/assets/b90fb898-27d1-4075-b482-e8ea5d83b304" />
 
 AWE is suitable for technical demonstrations, internal tooling, research environments, and systems engineering interviews where architectural clarity and execution transparency are critical.
 
@@ -50,6 +55,8 @@ At a high level, AWE consists of three layers:
   A frontend that visualizes the execution DAG, task states, and live progress.
 
 All components are modular and designed for extension.
+
+<img width="1119" height="599" alt="img 4" src="https://github.com/user-attachments/assets/7416e891-788c-45b4-bd9f-321b0f0763a8" />
 
 ## Architecture
 
@@ -100,6 +107,28 @@ Execution Engine
         ↓ State persistence
         
 Vector / State Store
+```
+
+## Project Structure
+
+```
+awe/
+├── backend/
+│   └── app/
+│       ├── api/              # REST endpoints
+│       ├── execution/        # Task orchestration logic
+│       ├── ws_manager/       # WebSocket handling
+│       ├── config.py         # Environment configuration
+│       └── main.py           # Application entrypoint
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── App.tsx
+│   └── vite.config.mjs
+│
+└── README.md
 ```
 
 ## Execution Model
@@ -241,67 +270,6 @@ AWE is built around the belief that autonomous systems should be:
 
 The project favors explicit data flow, explicit state transitions, and explicit interfaces over opaque abstractions.
 
-## Project Structure
-
-```
-awe/
-├── backend/
-│   └── app/
-│       ├── api/              # REST endpoints
-│       ├── execution/        # Task orchestration logic
-│       ├── ws_manager/       # WebSocket handling
-│       ├── config.py         # Environment configuration
-│       └── main.py           # Application entrypoint
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── App.tsx
-│   └── vite.config.mjs
-│
-└── README.md
-```
-
-## Engineering Principles
-
-- **Explicit State**  
-  Every transition is modeled and persisted.
-  
-- **Deterministic Execution**  
-  Identical inputs produce identical execution graphs.
-
-- **Observability First**  
-  Execution is visible at all times, not inferred.
-
-- **Modular Design**  
-  Components evolve independently without cascading changes.
-
-- **Production Readiness**  
-  Execution state is continuously stored and queryable.
-
-- **Production-Grade API**  
-  Clear interfaces, predictable behavior, and deployability are first-class concerns.
-
-## Roadmap
-
-- DAG persistence and replay
-- Task retries and compensation logic
-- Execution versioning
-- Access control and authentication
-- Multi-tenant support
-- Advanced visualization layers
-
-Intended Use Cases
-
-Demonstrating agentic execution systems
-
-Evaluating autonomous planning and orchestration
-
-Teaching or assessing systems design and execution models
-
-Building internal tooling for structured automation
-
 ## License
 
-MIT License.
+AWE is licensed under the MIT License.
