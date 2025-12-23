@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api import router as api_router
 from app.ws_manager import router as websocket_router
 
-app = FastAPI(title="AWE - Autonomous Workflow Engineer")
+app = FastAPI(title="AWE - Autonomous Workflow Engine")
 
 app.add_middleware(
     CORSMiddleware,

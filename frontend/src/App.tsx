@@ -98,7 +98,7 @@ async function submit(overrideGoal?: string) {
           <Logo />
 
           <div>
-            <div className="text-xl font-semibold">Autonomous Workflow Engineer</div>
+            <div className="text-xl font-semibold">Autonomous Workflow Engine</div>
             <div className="text-sm text-gray-400">Live DAG Visualization</div>
           </div>
         </div>
