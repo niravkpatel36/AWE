@@ -113,21 +113,60 @@ Vector / State Store
 
 ```
 awe/
-├── backend/
+├── backend/                  # Backend service
+│   ├── requirements.txt      # Python dependencies
+│   ├── runtime.txt           # Python runtime version
+│   ├── start.sh              # Service startup script
+│   │
 │   └── app/
-│       ├── api/              # REST endpoints
-│       ├── execution/        # Task orchestration logic
-│       ├── ws_manager/       # WebSocket handling
-│       ├── config.py         # Environment configuration
-│       └── main.py           # Application entrypoint
+│       ├── main.py           # FastAPI application entrypoint
+│       ├── api.py            # HTTP API routes
+│       ├── ws_manager.py     # WebSocket connection handling
+│       ├── config.py         # Environment and app configuration
+│       │
+│       ├── agent/            # Execution engine and agent logic
+│       │   ├── planner.py    # Goal decomposition and planning
+│       │   ├── executor.py   # Task execution and scheduling
+│       │   ├── graph_state.py# DAG state and lifecycle tracking
+│       │   ├── memory.py     # Execution memory and state persistence
+│       │   ├── models.py     # Internal data models
+│       │   └── tools/        # Agent tool interfaces
+│       │       ├── browser_tool.py
+│       │       ├── file_tool.py
+│       │       └── http_tool.py
+│       │
+│       └── sandbox/          # Isolated execution environment
+│           ├── Dockerfile
+│           └── runner.py
 │
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── App.tsx
-│   └── vite.config.mjs
+├── frontend/                 # Frontend client
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.mjs
+│   ├── tsconfig.json
+│   ├── tailwind.config.cjs
+│   ├── postcss.config.cjs
+│   ├── img1.png
+│   ├── img2.png
+│   ├── img3.png
+│   ├── img4.png
+│   │
+│   └── src/
+│       ├── main.tsx          # Frontend entrypoint
+│       ├── App.tsx           # Root application component
+│       ├── config.ts         # Frontend configuration
+│       ├── styles/
+│       │   └── tailwind.css
+│       └── components/       # UI components
+│           ├── GraphView.tsx # DAG visualization
+│           ├── TaskConsole.tsx
+│           ├── WsClient.ts
+│           └── Logo.tsx
 │
+├── License
+├── .gitignore
+├── railway.toml              # Deployment configuration
 └── README.md
 ```
 
